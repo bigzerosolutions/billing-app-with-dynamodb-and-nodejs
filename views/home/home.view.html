@@ -1,0 +1,29 @@
+<div style="background-image:url('./public/images/scroll1.jpg');width:100%;height:970px;background-repeat:no-repeat;background-size:cover">
+	<div  class="container " style="padding-top:4%;" >
+		<!-- <p style="color:#fff;font-size:38px;padding-left:3%;font-weight:700">Hi {{vm.username}}!</p>
+		 -->
+		 <p align="right" style=""><a href="#/login" class="btn btn-primary">Logout</a></p></br>
+		 <p style="font-size:50px;color:#428BCA;margin:10px" >Hi {{vm.username}} !</p>
+		 <div class="row" style="padding-top:8%">
+			<div class="col-lg-5 selectDiv " align="center" ng-click="vm.newInvoice()">
+				<h1><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp; New Invoice &nbsp;&nbsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
+			</div>
+			<div class="col-lg-2"></div>
+			<div class="col-lg-5 selectDiv" align="center" ng-click="vm.allProducts()">
+				<h1><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp; Stock Details &nbsp;&nbsp;<i class="fa fa-truck" aria-hidden="true"></i></h1>
+			</div>
+		</div>
+		<div class="row" style="padding-top:3%">
+			<div class="col-lg-5 selectDiv " align="center" ng-click="vm.allInvoices()">
+				<h1><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp; View Invoices &nbsp;&nbsp;<i class="fa fa-print" aria-hidden="true"></i></h1>
+			</div>
+			<div class="col-lg-2"></div>
+			<div ng-hide="divEnabled" id="settingDiv" class="col-lg-5 selectDiv" align="center" ng-click="vm.settings()">
+				<h1><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp; App Settings &nbsp;&nbsp;<i class="fa fa-cogs" aria-hidden="true"></i></h1>
+			</div>
+		</div>
+	</div>	 
+</div>
+<script>
+	
+</script>

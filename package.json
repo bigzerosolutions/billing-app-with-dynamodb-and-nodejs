@@ -1,0 +1,41 @@
+
+{
+  
+	"name": "meanapplication",
+
+  	"version": "0.2.5",
+ 
+ 	"main": "server.js",
+
+  	"description": "A Mean app ",
+
+  	"engines": 
+		{
+ "node": "5.9.1"
+ },
+  
+  	"scripts": 
+		{ "start": "node server.js"
+ },
+
+  	"dependencies": 
+		{ "express" : "~4.5.1",
+    "mongoose" : "~3.8.0",
+    "body-parser" : "~1.4.2",
+    "method-override" : "~2.0.2" },
+
+  	"repository": 
+		{ "type": "git",
+    "url": "https://github.com/bigzerosolutions/Billing-Inventory-using-MEAN2.git"
+  },
+
+  	"keywords":
+		[ "node",
+    "heroku",
+    "express"
+  ],
+  
+		"license": "NIL"
+
+}
+

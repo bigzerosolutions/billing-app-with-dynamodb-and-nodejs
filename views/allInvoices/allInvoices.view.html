@@ -1,0 +1,50 @@
+
+<div class="" style="background-image:url('./public/images/search.jpg');width:100%;height:970px;background-repeat:no-repeat;background-size:cover">
+	<div class=" container">
+		<div class="row" style="padding-top:5%;margin-right:0px!important;">
+			
+			<div class="col-lg-6" align="left" style="padding-bottom:20px">
+				<a href="#/home" class="btn btn-primary">Back to Home</a>
+			</div>
+			<div class="col-lg-6" align="right" style="padding-bottom:20px">
+				<a href="#/login" class="btn btn-danger">Logout</a>
+			</div>
+			<p style="text-align:center;font-size:30px;font-weight:700;background:#fff;opacity:0.9;padding:20px;margin-top: 60px;">ALL INVOICES</p>
+			<div style="background:#fff;opacity:0.9;padding:20px">
+			<div class="" style="background:#fff;opacity:0.9;padding-top:20px!important;padding-right: 17px;">
+			
+				<table class="table" align="" cellpadding="5px" cellspacing="5px" style="margin-bottom:0px!important">
+					
+
+					<tr style="">
+						<th style="padding:5px;border:1px solid" width="158"> Invoice Number </th>
+						<th style="padding:5px;border:1px solid" width="128"> Invoice Date </th>
+						<th style="padding:5px;border:1px solid" width="125"> Client Name </th>
+						<th style="padding:5px;border:1px solid" width="146"> Client Contact </th>
+						<th style="padding:5px;border:1px solid" width="138"> Total Amount </th>
+						<th style="padding:5px;border:1px solid" width="300"> Note </th>
+						<th ng-hide="actionth" style="padding:5px;border:1px solid" width="122"> Action </th>
+					</tr>
+				</table>
+			</div>
+			<div class="" style="background:#fff;opacity:0.9;overflow-y: auto;max-height: 500px;">
+			
+				<table class="table" align="" cellpadding="5px" cellspacing="5px" style="background:#F1F1F1">
+				
+					<tr ng-repeat="invoice in allinvoices">
+						<td style="padding:5px;border:1px solid"  width="158">{{invoice.invoiceNo}}</td>
+						<td style="padding:5px;border:1px solid" width="128">{{invoice.invoiceDate}}</td>
+						<td style="padding:5px;border:1px solid" width="125">{{invoice.clientName}}</td>
+						<td style="padding:5px;border:1px solid" width="146">{{invoice.clientContact}}</td>
+						<td style="padding:5px;border:1px solid" width="138">{{invoice.totalAmount}}</td>
+						<td style="padding:5px;border:1px solid" width="300">{{invoice.note}}</td>
+						<td ng-hide="actiontd" style="padding:5px;border:1px solid" align="center" width="122"><button class="btn btn-danger" ng-click="removeInvoice(invoice.invoiceNo)">Remove</button></td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+		</div>
+
+	</div>
+</div>
