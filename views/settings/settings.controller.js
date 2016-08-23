@@ -26,24 +26,21 @@
           		{
           			alert("Sorry admin Password is incorrect!");
           		}
-            });
-
-            
+            });            
         }; 
         $scope.deleteUser = function()
-    	{
-    		console.log($scope.del);
-            $http.post('/verifyAdmin',$scope.del).success(function(response)
-            {   
-                //console.log(response);
-                if(response == "true") 
-                {
-                   console.log("user deleted");
-                   clearall();
-                   refresh();
-                }
-                
-            });
+    	  {
+    		  console.log($scope.del);
+          $http.post('/verifyAdmin',$scope.del).success(function(response)
+          {   
+            //console.log(response);
+            if(response == "true") 
+            {
+              console.log("user deleted");
+              clearall();
+              refresh();
+            }      
+          });
         };
         $scope.clearall = function()
     	{

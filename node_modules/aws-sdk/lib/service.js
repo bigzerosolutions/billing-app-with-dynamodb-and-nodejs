@@ -2,6 +2,7 @@ var AWS = require('./core');
 var Api = require('./model/api');
 var regionConfig = require('./region_config');
 var inherit = AWS.util.inherit;
+var clientCount = 0;
 
 /**
  * The service class representing an AWS service.
@@ -32,6 +33,7 @@ AWS.Service = inherit({
         enumerable: false,
         configurable: true
       });
+      svc._clientId = ++clientCount;
       return svc;
     }
     this.initialize(config);
@@ -516,7 +518,7 @@ AWS.util.update(AWS.Service, {
           });
         }
       }
-      if (!superclass.services.hasOwnProperty(version)) {
+      if (!Object.prototype.hasOwnProperty.call(superclass.services, version)) {
         superclass.apiVersions = superclass.apiVersions.concat(version).sort();
       }
       superclass.services[version] = svc;
@@ -532,7 +534,7 @@ AWS.util.update(AWS.Service, {
    * @api private
    */
   hasService: function(identifier) {
-    return AWS.Service._serviceMap.hasOwnProperty(identifier);
+    return Object.prototype.hasOwnProperty.call(AWS.Service._serviceMap, identifier);
   },
 
   /**

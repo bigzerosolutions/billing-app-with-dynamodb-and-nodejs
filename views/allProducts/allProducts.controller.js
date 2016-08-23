@@ -57,16 +57,16 @@
             $http.get('/allproducts').success(function(response)
             {
                 //console.log("got data rquested");
-                $scope.details = response;
+                $scope.details = response.Items;
                 $scope.options = [{pName:""}];
-                //console.log(response);
+                //console.log(response.Items[0].pName.S);
                 var values = response;
                 var i;
                 //console.log(values);
-                for(i=0;i<values.length;i++)
+                for(i=0;i<values.count;i++)
                 {
-                    $scope.options.push({pName:values[i].pName});
-                } 
+                    $scope.options.push({pName:values[i].pName.S});
+                }
                 $scope.add="";    
             });
       

@@ -15,12 +15,12 @@
             $http.post('/login',$scope.vm).success(function(response)
             {   
 
-                console.log(response);
+                //console.log(response);
                 if(response == "true") 
                 {
                     AuthenticationService.SetCredentials(vm.username, vm.password);
                     var test = $location.path('/home');
-                    console.log(test);
+                    //console.log(test);
                     
                 }
                 

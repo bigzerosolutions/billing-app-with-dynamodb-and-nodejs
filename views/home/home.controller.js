@@ -22,7 +22,7 @@
             $rootScope.divEnabled = true;
         }
 
-        console.log(vm.username);
+        //console.log(vm.username);
         function newInvoice() 
         {
             $location.path('/newInvoice');

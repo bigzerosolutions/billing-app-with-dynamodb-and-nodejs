@@ -5,7 +5,7 @@ Application Technologies used:
 > ANGULAR JS
 > NODE JS
 > JAVASCRIPT
-> MONGO DB
+> Amazon Dynamo DB
 
 Installments Required:
 ---------------------

@@ -71,12 +71,12 @@
 				<table class="table" align="" cellpadding="5px" cellspacing="5px" style="background:#F1F1F1">
 									
 					<tr ng-repeat="d in details | orderBy:'pName'">
-						<td style="padding:5px;border:1px solid" width="164">{{d.pName}}</td>
-						<td style="padding:5px;border:1px solid" width="206">{{d.pCompany}}</td>
-						<td style="padding:5px;border:1px solid" width="228">{{d.pDesc}}</td>
-						<td style="padding:5px;border:1px solid" width="155">{{d.pCost}}</td>
-						<td style="padding:5px;border:1px solid" width="143">{{d.pTax}}</td>
-						<td style="padding:5px;border:1px solid" width="168">{{d.pStock}}</td>
+						<td style="padding:5px;border:1px solid" width="164">{{d.pName.S}}</td>
+						<td style="padding:5px;border:1px solid" width="206">{{d.pCompany.S}}</td>
+						<td style="padding:5px;border:1px solid" width="228">{{d.pDesc.S}}</td>
+						<td style="padding:5px;border:1px solid" width="155">{{d.pCost.N}}</td>
+						<td style="padding:5px;border:1px solid" width="143">{{d.pTax.N}}</td>
+						<td style="padding:5px;border:1px solid" width="168">{{d.pStock.N}}</td>
 					</tr>
 				</table>
 				</div>
