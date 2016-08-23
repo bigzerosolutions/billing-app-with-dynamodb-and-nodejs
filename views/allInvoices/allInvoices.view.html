@@ -17,14 +17,14 @@
 					
 
 					<tr style="">
-						<th style="padding:5px;border:1px solid" width="158"> Invoice Number </th>
-						<th style="padding:5px;border:1px solid" width="128"> Invoice Date </th>
-						<th style="padding:5px;border:1px solid" width="125"> Client Name </th>
-						<th style="padding:5px;border:1px solid" width="146"> Client Contact </th>
+						<th style="padding:5px;border:1px solid" width="161"> Invoice Number </th>
+						<th style="padding:5px;border:1px solid" width="131"> Invoice Date </th>
+						<th style="padding:5px;border:1px solid" width="129"> Client Name </th>
+						<th style="padding:5px;border:1px solid" width="150"> Client Contact </th>
 						<th style="padding:5px;border:1px solid" width="138"> Total Amount </th>
 						<th style="padding:5px;border:1px solid" width="300"> Note </th>
-						<th ng-hide="actionth" style="padding:5px;border:1px solid" width="122"> Action </th>
-					</tr>
+						<!-- <th ng-hide="actionth" style="padding:5px;border:1px solid" width="122"> Action </th>
+					 --></tr>
 				</table>
 			</div>
 			<div class="" style="background:#fff;opacity:0.9;overflow-y: auto;max-height: 500px;">
@@ -32,14 +32,14 @@
 				<table class="table" align="" cellpadding="5px" cellspacing="5px" style="background:#F1F1F1">
 				
 					<tr ng-repeat="invoice in allinvoices">
-						<td style="padding:5px;border:1px solid"  width="158">{{invoice.invoiceNo}}</td>
-						<td style="padding:5px;border:1px solid" width="128">{{invoice.invoiceDate}}</td>
-						<td style="padding:5px;border:1px solid" width="125">{{invoice.clientName}}</td>
-						<td style="padding:5px;border:1px solid" width="146">{{invoice.clientContact}}</td>
-						<td style="padding:5px;border:1px solid" width="138">{{invoice.totalAmount}}</td>
-						<td style="padding:5px;border:1px solid" width="300">{{invoice.note}}</td>
-						<td ng-hide="actiontd" style="padding:5px;border:1px solid" align="center" width="122"><button class="btn btn-danger" ng-click="removeInvoice(invoice.invoiceNo)">Remove</button></td>
-					</tr>
+						<td style="padding:5px;border:1px solid" width="158">{{invoice.invoiceNo.S}}</td>
+						<td style="padding:5px;border:1px solid" width="128">{{invoice.invoiceDate.S}}</td>
+						<td style="padding:5px;border:1px solid" width="125">{{invoice.clientName.S}}</td>
+						<td style="padding:5px;border:1px solid" width="146">{{invoice.clientContact.S}}</td>
+						<td style="padding:5px;border:1px solid" width="138">{{invoice.totalAmount.S}}</td>
+						<td style="padding:5px;border:1px solid" width="300">{{invoice.note.S}}</td>
+					<!-- 	<td ng-hide="actiontd" style="padding:5px;border:1px solid" align="center" width="122"><button class="btn btn-danger" ng-click="removeInvoice(invoice.invoiceNo)">Remove</button></td>
+					 --></tr>
 				</table>
 				
 			</div>

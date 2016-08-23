@@ -24,8 +24,8 @@
     {
          $http.get('/allinvoices').success(function(response)
         {
-            $scope.allinvoices = response;
-            console.log($scope.allinvoices);    
+            $scope.allinvoices = response.Items;
+            console.log($scope.allinvoices.Items);    
         });
     }
 

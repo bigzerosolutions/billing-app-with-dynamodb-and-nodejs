@@ -19,11 +19,13 @@
             var i;
             
             var max=0;
-            for(i=0;i< response.length;i++)
+            //console.log(response.Count);
+            for(i=0;i< response.Count;i++)
             {
-                if (max < response[i].invoiceNo) 
+                //console.log(response.Items[i].invoiceNo.N);
+                if (max < response.Items[i].invoiceNo.S) 
                 {
-                    max = response[i].invoiceNo;
+                    max =response.Items[i].invoiceNo.S;
                     $scope.vm.invoiceNumber = parseInt(max);
                 }
             }
@@ -34,13 +36,14 @@
 
         $http.get('/allproducts').success(function(response)
         {
-            $scope.d = response;
+            console.log(response.Items);
+            $scope.d = response.Items;
             $scope.options = [{pName:""}];
             var values = response;
             var i;
-            for(i=0;i<values.length;i++)
+            for(i=0;i<values.Count;i++)
             {
-                $scope.options.push({pName:values[i].pName});
+                $scope.options.push({pName:values.Items[i].pName.S});
             }     
         });
 
@@ -49,15 +52,15 @@
             var i;
             for(i=0;i<$scope.d.length;i++)
             {
-                if (name.pName ==$scope.d[i].pName) 
+                if (name.pName ==$scope.d[i].pName.S) 
                 {
-                    $scope.vm.pCost = parseInt($scope.d[i].pCost);
-                    $scope.vm.pTax = parseInt($scope.d[i].pTax);
-                    $scope.vm.pStock = parseInt($scope.d[i].pStock);
+                    $scope.vm.pCost = parseInt($scope.d[i].pCost.S);
+                    $scope.vm.pTax = parseInt($scope.d[i].pTax.S);
+                    $scope.vm.pStock = parseInt($scope.d[i].pStock.S);
                     $scope.vm.pQty = 1;
-                    $scope.vm.pName = $scope.d[i].pName;
-                    $scope.vm.pCompany = $scope.d[i].pCompany;
-                    $scope.vm.pDesc = $scope.d[i].pDesc;
+                    $scope.vm.pName = $scope.d[i].pName.S;
+                    $scope.vm.pCompany = $scope.d[i].pCompany.S;
+                    $scope.vm.pDesc = $scope.d[i].pDesc.S;
                 }
             }
         }
