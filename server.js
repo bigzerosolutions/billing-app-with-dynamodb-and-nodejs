@@ -186,12 +186,11 @@ app.get('/allproducts', function(req , res)
 
 app.post('/addProducts', function(req , res) 
 {
-  console.log(req.body);
+  //console.log(req.body);
   var ddb = createDBConnection();
   var pCost =req.body.pCost.toString();
   var pStock =req.body.pStock.toString();
   var pTax =req.body.pTax.toString();
-  console.log();
   var params = 
   {
     Item: 
@@ -205,7 +204,7 @@ app.post('/addProducts', function(req , res)
      },
      TableName: 'products'
   };
-  console.log(params);
+  //console.log(params);
   ddb.putItem(params, function(err, data) 
   {
     if (err) 
@@ -225,7 +224,7 @@ app.post('/addProducts', function(req , res)
 
 app.put('/update', function(req , res) 
 {
-    console.log(req.body)
+    //console.log(req.body)
     var ddb = createDBConnection();
     var pCost =req.body.pCost.toString();
     var Stock =req.body.Stock.toString();
@@ -244,7 +243,7 @@ app.put('/update', function(req , res)
      },
      TableName: 'products'
   };
-  console.log(params);
+  //console.log(params);
   ddb.putItem(params, function(err, data) 
   {
     if (err) 
@@ -261,15 +260,32 @@ app.put('/update', function(req , res)
 
 
 /************************************* Remove product from table ********************************/
-/*app.delete('/remove/:name', function(req , res) {
+
+app.delete('/remove/:name', function(req , res) {
   var namep = req.params.name;
   //console.log(namep);
-  db.products.remove({pName: namep}, function(err, doc){
-    res.json(doc);
-  })
+  var ddb = createDBConnection();
+  var params = {
+    TableName:'products',
+    Key:{
+        "pName":namep
+    }
+  };
+  ddb.deleteItem(params, function(err, data) 
+  {
+    //console.log(data.Items);
+    if (err) 
+    {
+      console.log("Unable to add item. Error JSON:", JSON.stringify(err, null, 2)); 
+    }
+    else
+    {
+      res.json(data);
+    }
+  });
   
 });
-*/
+
 /******************************************* Get Invoice **************************************/
 app.get('/allinvoices', function(req , res) 
 {
@@ -315,7 +331,7 @@ app.post('/insertTOinvoice', function(req , res) {
      },
      TableName: 'invoices'
   };
-  console.log(params);
+  //console.log(params);
   ddb.putItem(params, function(err, data) 
   {
     if (err) 
@@ -330,7 +346,7 @@ app.post('/insertTOinvoice', function(req , res) {
   });
 });
 
-/**************************************** To get all Invoices **********************************/
+/**************************************************************************/
 /*app.delete('/removeInvoice/:invoice', function(req , res) {
   var invo = parseInt(req.params.invoice);
   console.log(invo);
@@ -342,7 +358,7 @@ app.post('/insertTOinvoice', function(req , res) {
 */
 
 
-/**************************************** To get fee Installment *********************************/
+/*************************************************************************/
 /*
 app.put('/updateStock', function(req , res) 
 {
