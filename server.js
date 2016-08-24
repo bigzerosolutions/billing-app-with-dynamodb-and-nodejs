@@ -35,8 +35,8 @@ app.get('/',function(req,res){
 });
 
 function createDBConnection()
-{
-  AWS.config.update({accessKeyId: 'AKIAJK4I2MJBZXRNNZCA', secretAccessKey: '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'});
+{2
+  AWS.config.update({accessKeyId: 'AKIAJK4I2MSDAJBZXRNNZCA', secretAccessKey: 'BT2buSDASD1caGY2s+ptIS9d4KJKavwtiNhk45ZAqvV14A'});
   // Configure the region
   AWS.config.region = 'us-west-2';  //us-west-2 is Oregon
   //create the ddb object
