@@ -36,7 +36,7 @@ app.get('/',function(req,res){
 
 function createDBConnection()
 {
-  AWS.config.update({accessKeyId: 'AKIAJK4I2MJBZXRNNZCA', secretAccessKey: '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'});
+  AWS.config.update({accessKeyId: 'AKIAIZ3W7GTR5ASAA75Q', secretAccessKey: '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'});
   // Configure the region
   AWS.config.region = 'us-west-2';  //us-west-2 is Oregon
   //create the ddb object
@@ -52,19 +52,21 @@ app.post('/login', function(req , res) {
   var uname = req.body.username;
   var upass = req.body.password;
   var ddb = createDBConnection();
-  //console.log(ddb);
+  //console.log(req.body);
   var readparams = 
   {  
-      Key: 
+      Key:
       {
         username: {S: uname}
       },
       AttributesToGet: ['password'],
       TableName: 'login'
   };
-
+  //console.log(readparams);
+  
   ddb.getItem(readparams, function(err, data) 
   {
+      //console.log(data);
       if (err) 
       {
         console.log("Login failed, Could not connect to DynamoDB"); 
@@ -263,12 +265,13 @@ app.put('/update', function(req , res)
 
 app.delete('/remove/:name', function(req , res) {
   var namep = req.params.name;
-  //console.log(namep);
+  console.log(namep);
   var ddb = createDBConnection();
   var params = {
     TableName:'products',
-    Key:{
-        "pName":namep
+    Key:
+    {
+        pName:{S:namep}
     }
   };
   ddb.deleteItem(params, function(err, data) 
@@ -276,7 +279,7 @@ app.delete('/remove/:name', function(req , res) {
     //console.log(data.Items);
     if (err) 
     {
-      console.log("Unable to add item. Error JSON:", JSON.stringify(err, null, 2)); 
+      console.log("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2)); 
     }
     else
     {
@@ -347,29 +350,57 @@ app.post('/insertTOinvoice', function(req , res) {
 });
 
 /**************************************************************************/
-/*app.delete('/removeInvoice/:invoice', function(req , res) {
+
+/*
+  app.delete('/removeInvoice/:invoice', function(req , res) {
   var invo = parseInt(req.params.invoice);
   console.log(invo);
   db.invoices.remove({invoiceNo: invo}, function(err, doc){
     res.json(doc);
   })
-  
 });
 */
 
-
 /*************************************************************************/
-/*
+
 app.put('/updateStock', function(req , res) 
 {
-  console.log(req.body);
-  db.products.findAndModify({query:{pName: req.body.pName},update:{$set: {pStock:req.body.pStock}},
-  new:true}, function(err, doc)
+  var ddb = createDBConnection();
+  //console.log(req.body);
+  var pStock =req.body.pStock.toString();
+  
+  var params = 
   {
-    res.json(doc);
-  })
+    "TableName": "products",
+    "Key": 
+    {
+        "pName": 
+        {
+            "S": req.body.pName
+        }
+    },
+    "UpdateExpression": "set pStock = :val1",
+    "ExpressionAttributeValues": 
+    {
+        ":val1": {"S": pStock}
+    },
+    "ReturnValues": "ALL_NEW"
+ };
+  //console.log(params);
+  ddb.updateItem(params, function(err, data) 
+  {
+    if (err) 
+    {
+      console.log("error");
+    }
+    else 
+    {
+      res.json(data);
+    }
+  });
 });
-*//**************************************** To get fee Installment *********************************/
+
+/**************************************** To get fee Installment *********************************/
 
 /*app.post('/addNewUser/:adminpass', function(req , res) {
   var uname = req.body.name;
