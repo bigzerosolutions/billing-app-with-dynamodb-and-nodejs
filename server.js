@@ -36,7 +36,7 @@ app.get('/',function(req,res){
 
 function createDBConnection()
 {
-  AWS.config.update({accessKeyId: 'AKIAJK4I2MJBZXRNNZCA', secretAccessKey: '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'});
+  AWS.config.update({accessKeyId: 'AKIAIZ3W7GTR5ASAA75Q', secretAccessKey: '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'});
   // Configure the region
   AWS.config.region = 'us-west-2';  //us-west-2 is Oregon
   //create the ddb object
@@ -52,23 +52,25 @@ app.post('/login', function(req , res) {
   var uname = req.body.username;
   var upass = req.body.password;
   var ddb = createDBConnection();
-  //console.log(ddb);
+  //console.log(req.body);
   var readparams = 
   {  
-      Key: 
+      Key:
       {
         username: {S: uname}
       },
       AttributesToGet: ['password'],
       TableName: 'login'
   };
-
+  //console.log(readparams);
+  
   ddb.getItem(readparams, function(err, data) 
   {
+      //console.log(data);
       if (err) 
       {
         console.log("Login failed, Could not connect to DynamoDB"); 
-        return false;
+        res.json(status);
       }
       else 
       {
@@ -188,19 +190,23 @@ app.post('/addProducts', function(req , res)
 {
   //console.log(req.body);
   var ddb = createDBConnection();
+  var pCost =req.body.pCost.toString();
+  var pStock =req.body.pStock.toString();
+  var pTax =req.body.pTax.toString();
   var params = 
   {
     Item: 
     {
       "pName": { "S": req.body.pName },
       "pCompany": { "S": req.body.pCompany },
-      "pCost": { "N": req.body.pCost },
       "pDesc": { "S": req.body.pDesc },
-      "pStock": { "N": req.body.pStock },
-      "pTax": { "N": req.body.pTax }
+      "pCost": { "S": pCost },
+      "pStock": { "S": pStock },
+      "pTax": { "S": pTax }
      },
      TableName: 'products'
   };
+  //console.log(params);
   ddb.putItem(params, function(err, data) 
   {
     if (err) 
@@ -218,70 +224,183 @@ app.post('/addProducts', function(req , res)
 
 /*************************************** Update product table ***********************************/
 
-/*app.put('/update', function(req , res) 
+app.put('/update', function(req , res) 
 {
-  console.log(req.body.pName.pName);
-  db.products.findAndModify({query:{pName: req.body.pName.pName},update:{$set: {pCompany:req.body.pCompany,pCost:req.body.pCost,pQuantity:req.body.pQuantity,pDesc:req.body.pDesc}},
-  new:true}, function(err, doc)
+    //console.log(req.body)
+    var ddb = createDBConnection();
+    var pCost =req.body.pCost.toString();
+    var Stock =req.body.Stock.toString();
+    var pTax =req.body.pTax.toString();
+  
+    var params = 
   {
-    res.json(doc);
-  })
+    Item: 
+    {
+      "pName": { "S": req.body.pName.pName },
+      "pCompany": { "S": req.body.pCompany },
+      "pDesc": { "S": req.body.pDesc },
+      "pCost": { "S": pCost },
+      "pStock": { "S": Stock },
+      "pTax": { "S": pTax }
+     },
+     TableName: 'products'
+  };
+  //console.log(params);
+  ddb.putItem(params, function(err, data) 
+  {
+    if (err) 
+    {
+      console.log("error");
+    }
+    else 
+    {
+      
+      res.json(data);
+    }
+  });
 });
-*/
+
+
 /************************************* Remove product from table ********************************/
-/*app.delete('/remove/:name', function(req , res) {
+
+app.delete('/remove/:name', function(req , res) {
   var namep = req.params.name;
-  //console.log(namep);
-  db.products.remove({pName: namep}, function(err, doc){
-    res.json(doc);
-  })
+  console.log(namep);
+  var ddb = createDBConnection();
+  var params = {
+    TableName:'products',
+    Key:
+    {
+        pName:{S:namep}
+    }
+  };
+  ddb.deleteItem(params, function(err, data) 
+  {
+    //console.log(data.Items);
+    if (err) 
+    {
+      console.log("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2)); 
+    }
+    else
+    {
+      res.json(data);
+    }
+  });
   
 });
-*/
-/******************************************* Get Invoice **************************************/
-/*app.get('/allinvoices', function(req , res) 
-{
 
-  db.invoices.find(function(err, doc)
+/******************************************* Get Invoice **************************************/
+app.get('/allinvoices', function(req , res) 
+{
+  var ddb = createDBConnection();
+  var params = 
   {
-    //console.log(doc);
-    res.json(doc);
-  })  
+    TableName: 'invoices',
+    Select: 'ALL_ATTRIBUTES'
+  };
+  ddb.scan(params, function(err, data) 
+  {
+    //console.log(data.Items);
+    if (err) 
+    {
+      console.log("Unable to add item. Error JSON:", JSON.stringify(err, null, 2)); 
+    }
+    else
+    {
+      res.json(data);
+    }
+  });
 });
-*/
+
 /***************************************** To insert to invoice table *************************************/
-/*
+
 app.post('/insertTOinvoice', function(req , res) {
   //console.log(req.body);
-  db.invoices.insert(req.body, function(err, doc){
-    res.json(doc);
-  })
+  var ddb = createDBConnection();
+  var invoiceNo =req.body.invoiceNo.toString();
+  var clientContact =req.body.clientContact.toString();
+  var totalAmount =req.body.totalAmount.toString();
+  
+  var params = 
+  {
+    Item: 
+    {
+      "invoiceNo": { "S": invoiceNo },
+      "clientContact": { "S": clientContact },
+      "clientName": { "S": req.body.clientName },
+      "invoiceDate": { "S": req.body.invoiceDate },
+      "note": { "S": req.body.note },
+      "totalAmount": { "S": totalAmount }
+     },
+     TableName: 'invoices'
+  };
+  //console.log(params);
+  ddb.putItem(params, function(err, data) 
+  {
+    if (err) 
+    {
+      console.log("error");
+    }
+    else 
+    {
+      
+      res.json(data);
+    }
+  });
 });
 
-*//**************************************** To get all Invoices **********************************/
-/*app.delete('/removeInvoice/:invoice', function(req , res) {
+/**************************************************************************/
+
+/*
+  app.delete('/removeInvoice/:invoice', function(req , res) {
   var invo = parseInt(req.params.invoice);
   console.log(invo);
   db.invoices.remove({invoiceNo: invo}, function(err, doc){
     res.json(doc);
   })
-  
 });
 */
 
+/*************************************************************************/
 
-/**************************************** To get fee Installment *********************************/
-/*
 app.put('/updateStock', function(req , res) 
 {
-  console.log(req.body);
-  db.products.findAndModify({query:{pName: req.body.pName},update:{$set: {pStock:req.body.pStock}},
-  new:true}, function(err, doc)
+  var ddb = createDBConnection();
+  //console.log(req.body);
+  var pStock =req.body.pStock.toString();
+  
+  var params = 
   {
-    res.json(doc);
-  })
+    "TableName": "products",
+    "Key": 
+    {
+        "pName": 
+        {
+            "S": req.body.pName
+        }
+    },
+    "UpdateExpression": "set pStock = :val1",
+    "ExpressionAttributeValues": 
+    {
+        ":val1": {"S": pStock}
+    },
+    "ReturnValues": "ALL_NEW"
+ };
+  //console.log(params);
+  ddb.updateItem(params, function(err, data) 
+  {
+    if (err) 
+    {
+      console.log("error");
+    }
+    else 
+    {
+      res.json(data);
+    }
+  });
 });
-*//**************************************** To get fee Installment *********************************/
+
+/**************************************** To get fee Installment *********************************/
 
 /*app.post('/addNewUser/:adminpass', function(req , res) {
   var uname = req.body.name;
